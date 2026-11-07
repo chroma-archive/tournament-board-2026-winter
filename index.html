@@ -3,11 +3,28 @@
 .official-link{display:inline-flex;align-items:center;gap:9px;margin-top:16px;padding:12px 17px;border:1px solid #78eaff;border-radius:12px;background:linear-gradient(105deg,#173d56,#352456);color:#eaffff;text-decoration:none;font-weight:800;box-shadow:0 0 20px #4ad9ff22;position:relative;z-index:1}.official-link:hover{background:linear-gradient(105deg,#205777,#4a2e78);box-shadow:0 0 25px #4ad9ff55}.official-notice{background:#182944;border:1px solid #4e7098;border-radius:13px;padding:15px 18px;margin-bottom:15px}.official-notice p{margin:0 0 8px}.official-notice a{font-weight:800}
 /* Battle royale signup */
 .br-intro{line-height:1.8;color:var(--muted)}.br-count{color:var(--cyan);font-weight:800}.br-list{display:grid;gap:12px;margin-top:16px}.br-card{border:1px solid #65558e;border-left:4px solid var(--purple);background:linear-gradient(110deg,#1c2946,#2a2045);border-radius:14px;padding:17px}.br-card h3{margin:0 0 8px;font-size:18px}.br-card p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}.br-card .actions{margin-top:10px}.br-help{font-size:13px;color:var(--muted);line-height:1.7}.br-error{color:#ffd1db}
+
+/* Match applications */
+.app-toggle{margin-top:12px;width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.app-section{margin-top:12px;padding:14px;background:#0f1b32;border:1px solid #465b80;border-radius:12px}
+.app-section h4{margin:0 0 8px;color:var(--cyan);font-size:15px}
+.app-list{display:grid;gap:9px;margin:12px 0}
+.app-item{background:#1b2945;border:1px solid #3e5277;border-radius:10px;padding:12px}
+.app-item .head{align-items:start}
+.app-item p{margin:8px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.app-status{display:inline-block;font-size:12px;border-radius:20px;padding:3px 9px;background:#3c3559;color:#e7d8ff;border:1px solid #71659d}
+.app-status.accepted{background:#123b38;color:#a3ffdf;border-color:#27675c}
+.app-status.declined{background:#343d50;color:#d8ddeb;border-color:#59627b}
+.app-controls{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.app-controls button{font-size:12px;padding:7px 10px}
+.app-help{font-size:12px;color:var(--muted);line-height:1.7}
+.app-feedback{color:#ffd1db;font-size:13px}
 </style></head><body><main class="wrap"><header class="hero"><div class="eyebrow">FIGHT CLUB X CROSS / MATCH BOARD</div><h1>闘技大会 <span class="gradient">2026・冬</span></h1><div class="sub">対戦募集・ペア募集・参加者掲示板</div><div class="days"><span class="day">11.19 THU</span><span class="day">11.20 FRI</span><span class="day">11.21 SAT</span></div><a class="official-link" href="https://pbw-dyd.com/n/tougitaikaifuyu" target="_blank" rel="noopener noreferrer" aria-label="主催者による大会告知を開く（新しいタブ）">↗ 主催者による大会告知を見る</a></header><nav class="tabs" aria-label="メインメニュー"><button class="tab active" data-tab="board" aria-selected="true">対戦募集掲示板</button><button class="tab" data-tab="royale" aria-selected="false">バトルロイヤル参加者</button><button class="tab" data-tab="overview" aria-selected="false">大会概要・ルール</button></nav>
 <div id="boardView" class="layout"><section class="panel"><div class="head"><h2>募集を探す</h2><button class="primary" id="newBtn">＋ 新しく募集する</button></div><div class="categories" aria-label="募集カテゴリ"><button class="category active" data-category="" style="--accent:var(--cyan)">すべて<small>募集一覧</small></button><button class="category" data-category="タイマン募集" style="--accent:var(--cyan)">タイマン<small>対戦相手</small></button><button class="category" data-category="ペア募集" style="--accent:var(--purple)">ペア募集<small>一緒に戦う人</small></button></div><div class="categories" style="grid-template-columns:1fr;margin-top:0"><button class="category" data-category="対戦チーム募集" style="--accent:var(--pink)">2 VS 2 対戦チーム募集<small>ペアが揃ったら対戦チームを探そう</small></button></div><div class="filters"><select id="dayFilter" aria-label="日付で絞り込み"><option value="">すべての日付</option><option value="19">11月19日</option><option value="20">11月20日</option></select><select id="typeFilter" aria-label="バトル形式で絞り込み"><option value="">すべての形式</option><option>ガチバトル</option><option>ライトバトル</option><option>どちらでも</option></select><select id="statusFilter" aria-label="募集状況で絞り込み"><option value="">すべての状況</option><option>募集中</option><option>相談中</option><option>成立</option><option>募集終了</option></select></div><div id="cards" class="cards" aria-live="polite"></div></section><aside class="side"><section class="panel"><h3>大会について</h3><p>11月19日・20日はタイマン／2 VS 2。21日21時からはバトルロイヤルを開催予定です。</p><p>ルールや観戦情報は「大会概要・ルール」タブから確認できます。</p><button class="ghost" id="infoShortcut">大会概要を見る</button></section><section class="panel"><h3>ご利用の前に</h3><p class="notice"><strong>この掲示板の投稿は参加者間で共有されます。</strong>投稿内容は公開されるため、個人情報は書かないでください。</p><ul><li>投稿後の連絡はカラーパレット内DMなどで行ってください。</li><li>編集・削除用パスワードは忘れないよう保管してください。ほかのサービスと同じパスワードは使わないでください。</li><li>本サイトは非公式の補助掲示板という想定です。</li></ul></section></aside></div>
 <section id="royaleView" class="hidden"><div class="panel"><div class="head"><div><h2>11月21日（土）バトルロイヤル参加者一覧</h2><p class="br-intro">21時から開催予定のバトルロイヤルに参加するキャラクターを登録できます。<br>参加表明は任意です。登録していなくても大会には参加できます。</p><div class="br-count" id="brCount">参加者を読み込み中…</div></div><button class="primary" id="brNewBtn" type="button">＋ 参加者を登録する</button></div><p class="br-help">登録するのはキャラクター名とコメントだけ。編集・取り消しには登録時のパスワードが必要です。</p><div id="brList" class="br-list" aria-live="polite"></div></div></section>
 <section id="overviewView" class="info hidden"><div class="official-notice"><p>正式なルール・最新情報は主催者の大会告知をご確認ください。</p><a href="https://pbw-dyd.com/n/tougitaikaifuyu" target="_blank" rel="noopener noreferrer">↗ 元の大会告知を開く</a></div><div class="panel"><h2>闘技大会 2026・冬</h2><p><strong>強さを競え。遊び心を解き放て。</strong></p><p>闘士SUNRISEが所属するFIGHT CLUB X CROSSの全面協力を得て闘技大会が実現！</p><p>勝ちに来るもよし、遊びに来るもよし。真剣勝負から愉快な乱戦まで、冬の闘技場が三日間にわたって開幕！</p><p>腕に覚えのある者も、普段は戦いに縁のない者も大歓迎。それぞれのスタイルで、思い思いに闘技大会を楽しもう！</p></div><div class="panel"><h2>開催概要</h2><table><tbody><tr><td>開催日程</td><td>2026年11月19日（木・全日）、20日（金・全日）、21日（土・21時〜）</td></tr><tr><td>開催場所</td><td>闘技場（複数）</td></tr><tr><td>主催</td><td>黄杜（@koumori）・SUNRISE（@sun）</td></tr><tr><td>タグ</td><td>#闘技大会</td></tr><tr><td>参加方法</td><td>参加表明不要・自由参加</td></tr></tbody></table></div><div class="panel"><h2>大会スケジュール</h2><div class="schedule"><strong>11/19（木）</strong><div><b>タイマン・2 VS 2</b><p>一対一の真剣勝負、または二人一組のチーム戦。</p></div></div><div class="schedule"><strong>11/20（金）</strong><div><b>タイマン・2 VS 2</b><p>一日目と同様に自由に対戦できます。</p></div></div><div class="schedule"><strong>11/21（土）</strong><div><b>21時〜 バトルロイヤル</b><p>ライトバトル式の大乱戦。複数ルームに分かれて開催予定。</p></div></div></div><div class="panel"><h2>試合形式について</h2><div class="rule"><h3>ガチバトル</h3><p>通常の戦闘による試合形式です。故意による霊核破壊は禁止です。致命傷を受けたと判断した場合は、敗北宣言をしてください。彩昏の使用可。</p></div><div class="rule purple"><h3>ライトバトル</h3><p>釘バットと風船を使った、お祭り感覚の試合形式です。風船を割ったら勝ち！ 魔法の釘バットなので風船以外傷つけません。普段バトルをしない方も気軽にご参加ください！ 彩昏の使用不可。</p></div><div class="rule pink"><h3>バトルロイヤル</h3><p>参加者が入り乱れるサバイバル形式です。釘バットと風船を使ったライトバトル式。誰でも気軽にご参加ください！</p><p class="muted">PL補足：カスタムコマンドを用いる予定です。</p></div></div><div class="panel"><h2>観戦について</h2><p>試合に参加しない方も大歓迎！ 観戦用スペースを設ける予定です。モニター越しに試合を見守ったり、参加者を応援したり、会場の雰囲気を楽しんでください。</p><p>PL補足：配信を見ているという設定でSNSに投稿も可能です。投稿の際は必ず #闘技大会 のタグをつけてください。</p><h3>観戦用スペース・フード＆ドリンク</h3><p>サンちゃんのアイコン型クッキー／丸眼鏡刻印入り・ほかほか今川焼／麻辣湯／その他追加予定！</p></div><div class="panel"><h2>参加方法・Q＆A</h2><p>ガチバトル・ライトバトルは選択可能です。参加者同士、互いに気持ちよく楽しめるようご協力をお願いします。バトルに不慣れな方・見学のみの方も歓迎します！</p><h3>Q. 2 VS 2はどの形式で戦うの？</h3><p>ガチバトルとライトバトルの選択式です。お好きなほうをどうぞ。事前に話し合って決めるのも可、その場で決めるのも可です。</p><h3>Q. エントリー方法は？ 相手はどうやって探せば？</h3><p>エントリー不要です。闘技大会という名目を使ってルールの範囲内で自由に遊んでください。対戦相手はDMやSNSなどで示し合わせて参加、#闘技大会 タグを使っての募集、闘技場現地での待機などが考えられます。</p><h3>この掲示板でできること（補助機能）</h3><p>タイマン募集・2 VS 2のペア募集・2 VS 2の対戦チーム募集を掲載できます。実際の相談や待ち合わせはカラーパレット内DMなどで行ってください。</p></div><div class="panel"><h2>お問い合わせ</h2><p>大会に関する質問・相談・ご意見などは、主催の黄杜（@koumori）・SUNRISE（@sun）までお気軽にどうぞ。</p><p>初めての開催となるため、至らない点もあるかと思いますが、参加者の皆さんと一緒に楽しい大会にできればと思っています。</p><p><strong>さあ、冬の闘技場へ！</strong></p><p class="muted">※大会概要は提供された告知文をもとに整理した試作です。正式な情報は主催者の告知を優先してください。</p></div></section><footer class="foot">UNOFFICIAL MATCH BOARD / 2026 WINTER</footer></main>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><div class="dialog"><div class="head"><h2 id="dialogTitle">新しい募集</h2><button class="ghost" id="closeBtn" type="button">閉じる</button></div><form id="entryForm"><div class="field"><label for="purpose">募集の種類 *</label><select id="purpose"><option>タイマン募集</option><option>ペア募集</option><option>対戦チーム募集</option></select></div><div class="field"><label for="name">キャラクター名（募集者） *</label><input id="name" maxlength="60" required placeholder="例：サンプル参加者"></div><div class="field"><label for="partner">ペア相手の名前（対戦チーム募集の場合・任意）</label><input id="partner" maxlength="60" placeholder="例：チームメンバー名"></div><div class="field"><label for="date">希望日 *</label><select id="date"><option value="19">11月19日（木）</option><option value="20">11月20日（金）</option></select></div><div class="field"><label for="time">希望時刻 *</label><input id="time" maxlength="40" required placeholder="例：21:00頃、22時以降"></div><div class="field"><label for="type">バトル形式</label><select id="type"><option>ガチバトル</option><option>ライトバトル</option><option>どちらでも</option></select></div><div class="field"><label for="comment">募集コメント</label><textarea id="comment" maxlength="600" placeholder="希望する対戦やロールの進め方など"></textarea></div><div class="field"><label for="password">編集・削除用パスワード（8〜128文字）</label><input id="password" type="password" minlength="8" maxlength="128" required autocomplete="new-password" placeholder="8文字以上で設定"></div><p class="muted">※パスワードは投稿の編集・削除時に必要です。ほかのサービスと同じパスワードは使用しないでください。</p><div class="actions"><button class="ghost" type="button" id="cancelBtn">キャンセル</button><button class="primary" type="submit" id="submitBtn">募集を投稿する</button></div></form></div></div>
+<div class="modal" id="appModal" role="dialog" aria-modal="true" aria-labelledby="appDialogTitle"><div class="dialog"><div class="head"><h2 id="appDialogTitle">応募する</h2><button class="ghost" id="appClose" type="button">閉じる</button></div><form id="appForm"><div class="field"><label for="appName">キャラクター名 *</label><input id="appName" maxlength="60" required></div><div class="field"><label for="appComment">応募コメント（500文字まで）</label><textarea id="appComment" maxlength="500" placeholder="対戦の希望やご挨拶など"></textarea></div><div class="field"><label for="appPassword">応募の編集・削除用パスワード（8〜128文字） *</label><input id="appPassword" type="password" minlength="8" maxlength="128" required autocomplete="new-password"></div><p class="app-help">募集主のパスワードとは別に、応募者自身で設定してください。パスワードは忘れないように保管し、ほかのサービスと使い回さないでください。</p><div class="actions"><button class="ghost" id="appCancel" type="button">キャンセル</button><button class="primary" id="appSubmit" type="submit">応募を送信</button></div></form></div></div>
 <div class="modal" id="brModal" role="dialog" aria-modal="true" aria-labelledby="brDialogTitle"><div class="dialog"><div class="head"><h2 id="brDialogTitle">バトルロイヤル参加登録</h2><button class="ghost" type="button" id="brClose">閉じる</button></div><form id="brForm"><div class="field"><label for="brName">キャラクター名 *</label><input id="brName" maxlength="60" required></div><div class="field"><label for="brComment">ひとこと（任意・300文字まで）</label><textarea id="brComment" maxlength="300" placeholder="意気込みなど"></textarea></div><div class="field"><label for="brPassword">編集・取り消し用パスワード（8〜128文字） *</label><input id="brPassword" type="password" minlength="8" maxlength="128" required autocomplete="new-password"></div><p class="br-help">パスワードを忘れるとご自身では編集・取り消しできません。ほかのサービスと同じパスワードは使わないでください。</p><div class="actions"><button class="ghost" type="button" id="brCancel">キャンセル</button><button class="primary" type="submit" id="brSubmit">登録する</button></div></form></div></div>
 <script>
 const API='https://bwaqsodhfoyednxsvsrk.supabase.co/functions/v1/tournament-board';
@@ -23,7 +40,7 @@ const colorFor=p=>p==='ペア募集'?'var(--purple)':p==='対戦チーム募集'
 function normalize(p){return {id:p.id,name:p.character_name,partner:p.partner_name||'',purpose:purposeLabels[p.recruitment_type]||p.recruitment_type,date:(p.match_date||'').slice(8,10).replace(/^0/,''),time:p.match_time,type:battleLabels[p.battle_type]||p.battle_type,comment:p.comment||'',status:statusLabels[p.status]||p.status};}
 async function api(method,action,body){const response=await fetch(`${API}?action=${encodeURIComponent(action)}`,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});let data;try{data=await response.json()}catch{throw Error('サーバーから正しい応答がありません（HTTP '+response.status+'）')}if(!response.ok)throw Error(data.error||'通信に失敗しました（HTTP '+response.status+'）');return data;}
 async function load(){loading=true;render();try{const result=await api('GET','list');entries=(result.posts||[]).map(normalize)}catch(e){entries=[];$('cards').innerHTML=`<div class="empty">${safe(e.message)}<br><button class="ghost" id="retryBtn" type="button">再読み込み</button></div>`;$('retryBtn').onclick=load;loading=false;return}loading=false;render();}
-function render(){if(loading){$('cards').innerHTML='<div class="empty">募集一覧を読み込んでいます…</div>';return}const day=$('dayFilter').value,type=$('typeFilter').value,status=$('statusFilter').value;const filtered=entries.filter(x=>(!activeCategory||x.purpose===activeCategory)&&(!day||x.date===day)&&(!type||x.type===type)&&(!status||x.status===status));$('cards').innerHTML=filtered.length?filtered.map(x=>`<article class="entry" style="--accent:${colorFor(x.purpose)}"><div class="head"><div class="tags"><span class="tag">${safe(x.purpose)}</span><span class="tag">${safe(x.type)}</span></div><span class="status ${x.status==='募集中'?'':'closed'}">${safe(x.status)}</span></div><h3>${safe(x.name)}${x.partner?' ＆ '+safe(x.partner):''}</h3><div class="meta">11月${safe(x.date)}日 ／ ${safe(x.time)}</div><p>${safe(x.comment||'コメントなし')}</p><div class="entryfooter"><span class="muted">連絡・相談はカラーパレット内DMなどで</span><div class="head"><button class="ghost" data-action="edit" data-id="${safe(x.id)}">編集</button><button class="ghost" data-action="status" data-id="${safe(x.id)}">状況変更</button><button class="ghost" data-action="delete" data-id="${safe(x.id)}">削除</button></div></div></article>`).join(''):'<div class="empty">条件に合う募集はありません。</div>'}
+function render(){if(loading){$('cards').innerHTML='<div class="empty">募集一覧を読み込んでいます…</div>';return}const day=$('dayFilter').value,type=$('typeFilter').value,status=$('statusFilter').value;const filtered=entries.filter(x=>(!activeCategory||x.purpose===activeCategory)&&(!day||x.date===day)&&(!type||x.type===type)&&(!status||x.status===status));$('cards').innerHTML=filtered.length?filtered.map(x=>`<article class="entry" style="--accent:${colorFor(x.purpose)}"><div class="head"><div class="tags"><span class="tag">${safe(x.purpose)}</span><span class="tag">${safe(x.type)}</span></div><span class="status ${x.status==='募集中'?'':'closed'}">${safe(x.status)}</span></div><h3>${safe(x.name)}${x.partner?' ＆ '+safe(x.partner):''}</h3><div class="meta">11月${safe(x.date)}日 ／ ${safe(x.time)}</div><p>${safe(x.comment||'コメントなし')}</p><div class="entryfooter"><span class="muted">連絡・相談はカラーパレット内DMなどで</span><div class="head"><button class="ghost" data-action="edit" data-id="${safe(x.id)}">編集</button><button class="ghost" data-action="status" data-id="${safe(x.id)}">状況変更</button><button class="ghost" data-action="delete" data-id="${safe(x.id)}">削除</button></div></div><button class="ghost app-toggle" type="button" data-app-toggle="${safe(x.id)}" aria-expanded="${openAppPosts.has(x.id)}">応募コメントを見る・応募する <span>${openAppPosts.has(x.id)?'▲':'▼'}</span></button><div class="app-section ${openAppPosts.has(x.id)?'':'hidden'}" data-app-panel="${safe(x.id)}">${appPanelHtml(x.id)}</div></article>`).join(''):'<div class="empty">条件に合う募集はありません。</div>'}
 function setTab(tab){document.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);b.setAttribute('aria-selected',String(b.dataset.tab===tab))});$('boardView').classList.toggle('hidden',tab!=='board');$('overviewView').classList.toggle('hidden',tab!=='overview');$('royaleView').classList.toggle('hidden',tab!=='royale');if(tab==='royale')loadRoyale();window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));$('infoShortcut').onclick=()=>setTab('overview');document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{activeCategory=b.dataset.category;document.querySelectorAll('[data-category]').forEach(x=>x.classList.toggle('active',x===b));render()});['dayFilter','typeFilter','statusFilter'].forEach(id=>$(id).addEventListener('change',render));
 function modal(open){$('modal').classList.toggle('open',open);if(open)$('name').focus()}
@@ -56,5 +73,99 @@ $('brModal').addEventListener('click',e=>{if(e.target===$('brModal'))brModal(fal
 document.addEventListener('keydown',e=>{if(e.key==='Escape')brModal(false)});
 $('brForm').addEventListener('submit',async e=>{e.preventDefault();const body={character_name:$('brName').value.trim(),comment:$('brComment').value.trim(),password:$('brPassword').value};if(brEditingId)body.id=brEditingId;const btn=$('brSubmit');btn.disabled=true;brBusy=true;try{await brApi(brEditingId?'PUT':'POST',body);brModal(false);brReset()}catch(err){alert('保存できませんでした：'+err.message)}finally{brBusy=false;btn.disabled=false}if(!$('brModal').classList.contains('open'))await loadRoyale();});
 $('brList').addEventListener('click',async e=>{const btn=e.target.closest('button[data-br]');if(!btn)return;const entry=brEntries.find(x=>x.id===btn.dataset.id);if(!entry)return;if(btn.dataset.br==='edit'){brReset();brEditingId=entry.id;$('brDialogTitle').textContent='参加登録を編集';$('brSubmit').textContent='変更を保存';$('brName').value=entry.character_name||'';$('brComment').value=entry.comment||'';$('brPassword').autocomplete='current-password';brModal(true);return}if(btn.dataset.br==='delete'){const password=prompt('参加を取り消すためのパスワードを入力してください。');if(password===null)return;if(!confirm('この参加登録を取り消しますか？'))return;btn.disabled=true;try{await brApi('DELETE',{id:entry.id,password});await loadRoyale()}catch(err){alert('取り消しできませんでした：'+err.message);btn.disabled=false}}});
+
+// Applications are separate from match listings and battle royale entries.
+const APP_API='https://bwaqsodhfoyednxsvsrk.supabase.co/functions/v1/tournament-applications';
+const openAppPosts=new Set();
+const appCache=new Map();
+const appBusy=new Set();
+let appPostId=null,appEditingId=null,appSaving=false;
+const appStatusLabels={pending:'承認待ち',accepted:'承認済み',declined:'辞退'};
+async function appApi(method,action,body,postId){
+  const query=new URLSearchParams();
+  if(action)query.set('action',action);
+  if(postId)query.set('post_id',postId);
+  const response=await fetch(APP_API+'?'+query.toString(),{
+    method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined
+  });
+  let data;
+  try{data=await response.json()}catch{throw Error('サーバーから正しい応答がありません（HTTP '+response.status+'）')}
+  if(!response.ok)throw Error(data.error||'通信に失敗しました（HTTP '+response.status+'）');
+  return data;
+}
+function appPanelHtml(postId){
+  const data=appCache.get(postId);
+  const items=data?.items;
+  const content=!data?'<div class="muted">応募を読み込んでいます…</div>':data.error?`<div class="app-feedback">${safe(data.error)}</div>`:items.length?items.map(a=>`<div class="app-item"><div class="head"><strong>${safe(a.character_name)}</strong><span class="app-status ${safe(a.status)}">${safe(appStatusLabels[a.status]||a.status)}</span></div><p>${safe(a.comment||'コメントなし')}</p><div class="app-controls"><button class="ghost" type="button" data-app-action="edit" data-post-id="${safe(postId)}" data-app-id="${safe(a.id)}">編集</button><button class="ghost" type="button" data-app-action="delete" data-post-id="${safe(postId)}" data-app-id="${safe(a.id)}">削除</button><button class="ghost" type="button" data-app-action="accepted" data-post-id="${safe(postId)}" data-app-id="${safe(a.id)}">承認する</button><button class="ghost" type="button" data-app-action="declined" data-post-id="${safe(postId)}" data-app-id="${safe(a.id)}">辞退にする</button></div></div>`).join(''):'<div class="muted">まだ応募はありません。</div>';
+  return `<h4>この募集への応募</h4><p class="app-help">応募者は自分のパスワードで編集・削除できます。承認・辞退の変更には募集主のパスワードが必要です。</p><div class="app-list">${content}</div><div class="app-controls"><button class="primary" type="button" data-app-action="create" data-post-id="${safe(postId)}">＋ この募集に応募する</button><button class="ghost" type="button" data-app-action="refresh" data-post-id="${safe(postId)}">再読み込み</button></div>`;
+}
+function updateAppPanel(postId){
+  const panel=Array.from(document.querySelectorAll('[data-app-panel]')).find(el=>el.dataset.appPanel===postId);
+  if(panel)panel.innerHTML=appPanelHtml(postId);
+}
+async function loadApps(postId){
+  if(appBusy.has(postId))return;
+  appBusy.add(postId);
+  appCache.delete(postId);updateAppPanel(postId);
+  try{
+    const result=await appApi('GET','',null,postId);
+    appCache.set(postId,{items:Array.isArray(result.applications)?result.applications:[]});
+  }catch(err){appCache.set(postId,{error:err.message,items:[]})}
+  finally{appBusy.delete(postId);updateAppPanel(postId)}
+}
+function appModal(open){$('appModal').classList.toggle('open',open);if(open)$('appName').focus()}
+function openAppForm(postId,application){
+  $('appForm').reset();appPostId=postId;appEditingId=application?.id||null;
+  $('appDialogTitle').textContent=application?'応募を編集':'この募集に応募する';
+  $('appSubmit').textContent=application?'変更を保存':'応募を送信';
+  $('appName').value=application?.character_name||'';
+  $('appComment').value=application?.comment||'';
+  $('appPassword').autocomplete=application?'current-password':'new-password';
+  appModal(true);
+}
+$('appClose').onclick=$('appCancel').onclick=()=>appModal(false);
+$('appModal').addEventListener('click',e=>{if(e.target===$('appModal'))appModal(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')appModal(false)});
+$('appForm').addEventListener('submit',async e=>{
+  e.preventDefault();if(appSaving)return;
+  const body={post_id:appPostId,character_name:$('appName').value.trim(),comment:$('appComment').value,password:$('appPassword').value};
+  if(appEditingId)body.id=appEditingId;
+  const method=appEditingId?'PATCH':'POST',action=appEditingId?'update':'create';
+  appSaving=true;$('appSubmit').disabled=true;
+  try{await appApi(method,action,body);const postId=appPostId;appModal(false);$('appForm').reset();await loadApps(postId)}
+  catch(err){alert('応募を保存できませんでした：'+err.message)}
+  finally{appSaving=false;$('appSubmit').disabled=false}
+});
+$('cards').addEventListener('click',async e=>{
+  const toggle=e.target.closest('button[data-app-toggle]');
+  if(toggle){
+    const id=toggle.dataset.appToggle;
+    if(openAppPosts.has(id)){openAppPosts.delete(id);render()}
+    else{openAppPosts.add(id);render();if(!appCache.has(id))await loadApps(id)}
+    return;
+  }
+  const btn=e.target.closest('button[data-app-action]');if(!btn)return;
+  const postId=btn.dataset.postId,action=btn.dataset.appAction;
+  if(action==='refresh'){await loadApps(postId);return}
+  if(action==='create'){openAppForm(postId,null);return}
+  const item=appCache.get(postId)?.items?.find(a=>a.id===btn.dataset.appId);
+  if(!item)return;
+  if(action==='edit'){openAppForm(postId,item);return}
+  let password;
+  if(action==='delete'){
+    password=prompt('応募者本人の編集・削除用パスワードを入力してください。');
+    if(password===null||!confirm('この応募を削除しますか？'))return;
+  }else if(action==='accepted'||action==='declined'){
+    password=prompt('募集主の編集・削除用パスワードを入力してください。');
+    if(password===null)return;
+  }else return;
+  btn.disabled=true;
+  try{
+    if(action==='delete')await appApi('DELETE','delete',{post_id:postId,id:item.id,password});
+    else await appApi('PATCH','moderate',{post_id:postId,id:item.id,status:action,password});
+    await loadApps(postId);
+  }catch(err){alert('操作できませんでした：'+err.message);btn.disabled=false}
+});
+
 load();
 </script></body></html>
