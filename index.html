@@ -19,6 +19,14 @@
 .app-controls button{font-size:12px;padding:7px 10px}
 .app-help{font-size:12px;color:var(--muted);line-height:1.7}.app-section{margin-top:13px;padding:12px}.app-section .app-list{margin:9px 0}.app-section .app-item{padding:11px}.app-empty{color:var(--muted);font-size:13px;padding:7px 0}.app-section .app-title{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.app-section .app-title h4{margin:0}.app-show-all{margin:0 0 8px}.app-controls{align-items:center}
 .app-feedback{color:#ffd1db;font-size:13px}
+
+/* Application comments: open by default, collapsible by heading. */
+.app-heading-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:3px 0 8px;border:0;background:transparent;color:var(--cyan);font-weight:800;font-size:15px;text-align:left;cursor:pointer}
+.app-heading-hint{flex-shrink:0;color:var(--muted);font-size:12px;font-weight:600}
+.app-heading-toggle:hover .app-heading-hint{color:var(--cyan)}
+.app-heading-toggle:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+.app-collapsible[hidden]{display:none!important}
+.app-preview-note{text-align:right;margin:0 0 4px}
 </style></head><body><main class="wrap"><header class="hero"><div class="eyebrow">FIGHT CLUB X CROSS / MATCH BOARD</div><h1>闘技大会 <span class="gradient">2026・冬</span></h1><div class="sub">対戦募集・ペア募集・参加者掲示板</div><div class="days"><span class="day">11.19 THU</span><span class="day">11.20 FRI</span><span class="day">11.21 SAT</span></div><a class="official-link" href="https://pbw-dyd.com/n/tougitaikaifuyu" target="_blank" rel="noopener noreferrer" aria-label="主催者による大会告知を開く（新しいタブ）">↗ 主催者による大会告知を見る</a></header><nav class="tabs" aria-label="メインメニュー"><button class="tab active" data-tab="board" aria-selected="true">対戦募集掲示板</button><button class="tab" data-tab="royale" aria-selected="false">バトルロイヤル参加者</button><button class="tab" data-tab="overview" aria-selected="false">大会概要・ルール</button></nav>
 <div id="boardView" class="layout"><section class="panel"><div class="head"><h2>募集を探す</h2><button class="primary" id="newBtn">＋ 新しく募集する</button></div><div class="categories" aria-label="募集カテゴリ"><button class="category active" data-category="" style="--accent:var(--cyan)">すべて<small>募集一覧</small></button><button class="category" data-category="タイマン募集" style="--accent:var(--cyan)">タイマン<small>対戦相手</small></button><button class="category" data-category="ペア募集" style="--accent:var(--purple)">ペア募集<small>一緒に戦う人</small></button></div><div class="categories" style="grid-template-columns:1fr;margin-top:0"><button class="category" data-category="対戦チーム募集" style="--accent:var(--pink)">2 VS 2 対戦チーム募集<small>ペアが揃ったら対戦チームを探そう</small></button></div><div class="filters"><select id="dayFilter" aria-label="日付で絞り込み"><option value="">すべての日付</option><option value="19">11月19日</option><option value="20">11月20日</option></select><select id="typeFilter" aria-label="バトル形式で絞り込み"><option value="">すべての形式</option><option>ガチバトル</option><option>ライトバトル</option><option>どちらでも</option></select><select id="statusFilter" aria-label="募集状況で絞り込み"><option value="">すべての状況</option><option>募集中</option><option>相談中</option><option>成立</option><option>募集終了</option></select></div><div id="cards" class="cards" aria-live="polite"></div></section><aside class="side"><section class="panel"><h3>大会について</h3><p>11月19日・20日はタイマン／2 VS 2。21日21時からはバトルロイヤルを開催予定です。</p><p>ルールや観戦情報は「大会概要・ルール」タブから確認できます。</p><button class="ghost" id="infoShortcut">大会概要を見る</button></section><section class="panel"><h3>ご利用の前に</h3><p class="notice"><strong>この掲示板の投稿は参加者間で共有されます。</strong>投稿内容は公開されるため、個人情報は書かないでください。</p><ul><li>投稿後の連絡はカラーパレット内DMなどで行ってください。</li><li>編集・削除用パスワードは忘れないよう保管してください。ほかのサービスと同じパスワードは使わないでください。</li><li>本サイトは非公式の補助掲示板という想定です。</li></ul></section></aside></div>
 <section id="royaleView" class="hidden"><div class="panel"><div class="head"><div><h2>11月21日（土）バトルロイヤル参加者一覧</h2><p class="br-intro">21時から開催予定のバトルロイヤルに参加するキャラクターを登録できます。<br>参加表明は任意です。登録していなくても大会には参加できます。</p><div class="br-count" id="brCount">参加者を読み込み中…</div></div><button class="primary" id="brNewBtn" type="button">＋ 参加者を登録する</button></div><p class="br-help">登録するのはキャラクター名とコメントだけ。編集・取り消しには登録時のパスワードが必要です。</p><div id="brList" class="br-list" aria-live="polite"></div></div></section>
@@ -77,6 +85,7 @@ $('brList').addEventListener('click',async e=>{const btn=e.target.closest('butto
 // Applications are separate from match listings and battle royale entries.
 const APP_API='https://bwaqsodhfoyednxsvsrk.supabase.co/functions/v1/tournament-applications';
 const expandedAppPosts=new Set();
+const collapsedAppPosts=new Set();
 const appCache=new Map();
 const appBusy=new Set();
 let appPostId=null,appEditingId=null,appSaving=false;
@@ -98,11 +107,12 @@ function appPanelHtml(postId){
   const items=data?.items||[];
   const count=items.length;
   const expanded=expandedAppPosts.has(postId);
+  const collapsed=collapsedAppPosts.has(postId);
   // The API returns oldest first. Display the two newest applications by default.
   const shown=expanded?items:items.slice(-2);
   const content=!data?'<div class="app-empty">応募を読み込んでいます…</div>':data.error?`<div class="app-feedback">${safe(data.error)}</div>`:count?shown.map(a=>`<div class="app-item"><div class="head"><strong>${safe(a.character_name)}</strong><span class="app-status ${safe(a.status)}">${safe(appStatusLabels[a.status]||a.status)}</span></div><p>${safe(a.comment||'コメントなし')}</p><div class="app-controls"><button class="ghost" type="button" data-app-action="edit" data-post-id="${safe(postId)}" data-app-id="${safe(a.id)}">編集</button><button class="ghost" type="button" data-app-action="delete" data-post-id="${safe(postId)}" data-app-id="${safe(a.id)}">削除</button><button class="ghost" type="button" data-app-action="accepted" data-post-id="${safe(postId)}" data-app-id="${safe(a.id)}">承認する</button><button class="ghost" type="button" data-app-action="declined" data-post-id="${safe(postId)}" data-app-id="${safe(a.id)}">辞退にする</button></div></div>`).join(''):'<div class="app-empty">まだ応募はありません。</div>';
   const more=data&&!data.error&&count>2?`<button class="ghost app-show-all" type="button" data-app-action="toggle-all" data-post-id="${safe(postId)}" aria-expanded="${expanded}">${expanded?'最新2件だけ表示':'すべて見る（'+count+'件）'}</button>`:'';
-  return `<div class="app-title"><h4>応募コメント（${data&&!data.error?count+'件':'確認中'}）</h4>${count>2&&!expanded?'<span class="app-help">最新2件を表示</span>':''}</div><div class="app-list">${content}</div>${more}<div class="app-controls"><button class="primary" type="button" data-app-action="create" data-post-id="${safe(postId)}">＋ 応募する</button><button class="ghost" type="button" data-app-action="refresh" data-post-id="${safe(postId)}">再読み込み</button></div>`;
+  return `<button class="app-heading-toggle" type="button" data-app-action="toggle-panel" data-post-id="${safe(postId)}" aria-expanded="${!collapsed}"><span>応募コメント（${data&&!data.error?count+'件':'確認中'}）</span><span class="app-heading-hint">${collapsed?'開く ▼':'閉じる ▲'}</span></button><div class="app-collapsible" ${collapsed?'hidden':''}>${count>2&&!expanded?'<div class="app-help app-preview-note">最新2件を表示</div>':''}<div class="app-list">${content}</div>${more}<div class="app-controls"><button class="primary" type="button" data-app-action="create" data-post-id="${safe(postId)}">＋ 応募する</button><button class="ghost" type="button" data-app-action="refresh" data-post-id="${safe(postId)}">再読み込み</button></div></div>`;
 }
 function refreshVisibleApps(){
   document.querySelectorAll('[data-app-panel]').forEach(panel=>{
@@ -150,7 +160,8 @@ $('appForm').addEventListener('submit',async e=>{
 $('cards').addEventListener('click',async e=>{
   const btn=e.target.closest('button[data-app-action]');if(!btn)return;
   const postId=btn.dataset.postId,action=btn.dataset.appAction;
-  if(action==='refresh'){await loadApps(postId);return}
+  if(action==='toggle-panel'){if(collapsedAppPosts.has(postId))collapsedAppPosts.delete(postId);else collapsedAppPosts.add(postId);updateAppPanel(postId);return}
+   if(action==='refresh'){await loadApps(postId);return}
   if(action==='toggle-all'){if(expandedAppPosts.has(postId))expandedAppPosts.delete(postId);else expandedAppPosts.add(postId);updateAppPanel(postId);return}
   if(action==='create'){openAppForm(postId,null);return}
   const item=appCache.get(postId)?.items?.find(a=>a.id===btn.dataset.appId);
